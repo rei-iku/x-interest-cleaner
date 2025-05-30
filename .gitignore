@@ -77,3 +77,4 @@ curl.txt
 .claude
 CLAUDE.md
 config.json
+.DS_Store
