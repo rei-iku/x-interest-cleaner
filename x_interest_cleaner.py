@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Twitter Interest Cleaner
-A script to automatically disable all Twitter interests for a cleaner, ad-free experience.
+X Interest Cleaner
+Stop seeing trash in your timeline. Automatically disable all X interests for a cleaner, ad-free experience.
 
 Usage:
-    python twitter_cleaner.py --config config.json
-    python twitter_cleaner.py --manual  # For manual token input
-    python twitter_cleaner.py --help
+    python x_interest_cleaner.py --config config.json
+    python x_interest_cleaner.py --manual  # For manual token input
+    python x_interest_cleaner.py --help
 """
 
 import json
@@ -23,24 +23,24 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('twitter_cleaner.log'),
+        logging.FileHandler('x_interest_cleaner.log'),
         logging.StreamHandler(sys.stdout)
     ]
 )
 logger = logging.getLogger(__name__)
 
 @dataclass
-class TwitterCredentials:
-    """Store Twitter API credentials"""
+class XCredentials:
+    """Store X (formerly Twitter) API credentials"""
     bearer_token: str
     csrf_token: str
     auth_token: str  # From cookies
     ct0: str  # From cookies (CSRF token value)
 
-class TwitterInterestCleaner:
-    """Main class for cleaning Twitter interests"""
+class XInterestCleaner:
+    """Main class for cleaning X interests"""
     
-    def __init__(self, credentials: TwitterCredentials):
+    def __init__(self, credentials: XCredentials):
         self.credentials = credentials
         self.session = requests.Session()
         self._setup_session()
@@ -138,8 +138,8 @@ class TwitterInterestCleaner:
             return False
     
     def clean_interests(self) -> bool:
-        """Main method to clean all Twitter interests"""
-        logger.info("Starting Twitter interest cleaning process...")
+        """Main method to clean all X interests"""
+        logger.info("Starting X interest cleaning process...")
         
         try:
             # Step 1: Get current interests
@@ -157,7 +157,7 @@ class TwitterInterestCleaner:
             success = self.disable_all_interests(all_interests)
             
             if success:
-                logger.info("✅ Successfully cleaned all Twitter interests!")
+                logger.info("✅ Successfully cleaned all X interests!")
                 return True
             else:
                 logger.error("❌ Failed to clean interests")
@@ -167,13 +167,13 @@ class TwitterInterestCleaner:
             logger.error(f"Error during cleaning process: {e}")
             return False
 
-def load_config(config_path: str) -> Optional[TwitterCredentials]:
+def load_config(config_path: str) -> Optional[XCredentials]:
     """Load credentials from config file"""
     try:
         with open(config_path, 'r') as f:
             config = json.load(f)
         
-        return TwitterCredentials(
+        return XCredentials(
             bearer_token=config['bearer_token'],
             csrf_token=config['csrf_token'],
             auth_token=config['auth_token'],
@@ -209,7 +209,7 @@ def create_sample_config():
     print("   • ct0: From ct0 cookie (usually same as csrf_token)")
     print("💡 Rename to 'config.json' when ready")
 
-def manual_input() -> TwitterCredentials:
+def manual_input() -> XCredentials:
     """Get credentials via manual input"""
     print("🔐 Manual Token Input Mode")
     print("Please enter the 4 essential tokens:")
@@ -224,7 +224,7 @@ def manual_input() -> TwitterCredentials:
         ct0 = csrf_token
         print(f"ℹ️  Using CSRF token value for ct0: {ct0[:20]}...")
     
-    return TwitterCredentials(
+    return XCredentials(
         bearer_token=bearer_token,
         csrf_token=csrf_token,
         auth_token=auth_token,
@@ -234,13 +234,13 @@ def manual_input() -> TwitterCredentials:
 def main():
     """Main entry point"""
     parser = argparse.ArgumentParser(
-        description="Clean all Twitter interests for a better experience",
+        description="Clean all X interests - Stop seeing trash in your timeline",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python twitter_cleaner.py --config config.json
-  python twitter_cleaner.py --manual
-  python twitter_cleaner.py --create-config
+  python x_interest_cleaner.py --config config.json
+  python x_interest_cleaner.py --manual
+  python x_interest_cleaner.py --create-config
         """
     )
     
@@ -277,7 +277,7 @@ Examples:
         sys.exit(1)
     
     # Run the cleaner
-    cleaner = TwitterInterestCleaner(credentials)
+    cleaner = XInterestCleaner(credentials)
     
     if args.dry_run:
         print("🔍 Dry run mode - showing what would be disabled...")
@@ -286,7 +286,7 @@ Examples:
             disabled = cleaner.get_disabled_interests()
             total = list(set(current + disabled))
             
-            print(f"📊 Summary:")
+            print("📊 Summary:")
             print(f"  - Current interests: {len(current)}")
             print(f"  - Already disabled: {len(disabled)}")
             print(f"  - Total to disable: {len(total)}")

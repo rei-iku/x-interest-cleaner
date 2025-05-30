@@ -1,5 +1,5 @@
 /**
- * Twitter Token Extractor - Console Script
+ * X Token Extractor - Console Script
  *
  * Instructions:
  * 1. Go to x.com and make sure you're logged in
@@ -9,13 +9,13 @@
  * 5. Press Enter
  * 6. Your config.json will be downloaded automatically
  *
- * Repository: https://github.com/your-repo/twitter-interest-cleaner
+ * Repository: https://github.com/your-repo/x-interest-cleaner
  */
 
 (function () {
   "use strict";
 
-  console.log("🔑 Twitter Token Extractor v1.0");
+  console.log("🔑 X Token Extractor v1.0");
   console.log("================================");
 
   try {
@@ -35,7 +35,7 @@
       }
     });
 
-    // Use Twitter's public web app bearer token
+    // Use X's public web app bearer token
     tokens.bearer_token =
       "AAAAAAAAAAAAAAAAAAAAAMLheAAAAAAA0%2BuSeid%2BULvsea4JtiGRiSDyJug%3D";
     foundTokens++;
@@ -44,7 +44,7 @@
     // Validate we have essential tokens
     if (!tokens.ct0) {
       console.error("❌ Could not find ct0 cookie!");
-      console.error("💡 Make sure you are logged in to Twitter/X");
+      console.error("💡 Make sure you are logged in to X");
       console.error("💡 Try refreshing the page and running this script again");
       return;
     }
@@ -74,8 +74,8 @@
     console.log("\n💾 config.json downloaded successfully!");
     console.log("\n🚀 Next steps:");
     console.log("1. Save the downloaded config.json in your project folder");
-    console.log("2. Run: python twitter_cleaner.py");
-    console.log("3. Enjoy your clean Twitter interests! 🎉");
+    console.log("2. Run: python x_interest_cleaner.py");
+    console.log("3. Stop seeing trash in your timeline! 🎉");
 
     // Also copy to clipboard if possible
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -91,7 +91,7 @@
   } catch (error) {
     console.error("❌ Error extracting tokens:", error);
     console.error("\n🔧 Troubleshooting:");
-    console.error("1. Make sure you are on x.com (not twitter.com)");
+    console.error("1. Make sure you are on x.com");
     console.error("2. Make sure you are logged in");
     console.error("3. Try refreshing the page");
     console.error(
