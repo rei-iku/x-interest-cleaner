@@ -26,7 +26,7 @@ X Interest Cleaner is a Python tool that automatically disables all X/Twitter in
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/x-interest-cleaner.git
+git clone https://github.com/rei-iku/x-interest-cleaner.git
 cd x-interest-cleaner
 ```
 
@@ -114,11 +114,8 @@ The `config.json` file needs these tokens:
   "bearer_token": "AAAAAAAAAAAAAAAAAAAAAMLheAAA...",
   "csrf_token": "your_csrf_token_here",
   "ct0": "your_ct0_value_here",
-  "auth_token": "your_auth_token_here"
 }
 ```
-
-**Note**: The `auth_token` is only needed when running the Python script directly. The browser-based token extractors don't need it.
 
 ## 🔧 Troubleshooting
 

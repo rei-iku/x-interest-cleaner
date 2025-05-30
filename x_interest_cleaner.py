@@ -34,7 +34,6 @@ class XCredentials:
     """Store X (formerly Twitter) API credentials"""
     bearer_token: str
     csrf_token: str
-    auth_token: str  # From cookies
     ct0: str  # From cookies (CSRF token value)
 
 class XInterestCleaner:
@@ -48,7 +47,6 @@ class XInterestCleaner:
     def _setup_session(self):
         """Setup HTTP session with essential headers and cookies only"""
         # Set essential cookies only
-        self.session.cookies.set('auth_token', self.credentials.auth_token)
         self.session.cookies.set('ct0', self.credentials.ct0)
         
         # Set minimal required headers
@@ -176,7 +174,6 @@ def load_config(config_path: str) -> Optional[XCredentials]:
         return XCredentials(
             bearer_token=config['bearer_token'],
             csrf_token=config['csrf_token'],
-            auth_token=config['auth_token'],
             ct0=config['ct0']
         )
     except FileNotFoundError:
@@ -194,7 +191,6 @@ def create_sample_config():
     sample_config = {
         "bearer_token": "YOUR_BEARER_TOKEN_HERE",
         "csrf_token": "YOUR_CSRF_TOKEN_HERE", 
-        "auth_token": "YOUR_AUTH_TOKEN_FROM_COOKIES",
         "ct0": "YOUR_CT0_VALUE_FROM_COOKIES"
     }
     
@@ -205,7 +201,6 @@ def create_sample_config():
     print("📝 Please edit this file with your actual tokens:")
     print("   • bearer_token: From Authorization header (without 'Bearer ')")
     print("   • csrf_token: From x-csrf-token header")
-    print("   • auth_token: From auth_token cookie")
     print("   • ct0: From ct0 cookie (usually same as csrf_token)")
     print("💡 Rename to 'config.json' when ready")
 
@@ -216,7 +211,6 @@ def manual_input() -> XCredentials:
     
     bearer_token = input("Bearer Token (from Authorization header): ").strip()
     csrf_token = input("CSRF Token (from x-csrf-token header): ").strip()
-    auth_token = input("Auth Token (from auth_token cookie): ").strip()
     ct0 = input("CT0 (from ct0 cookie, usually same as CSRF): ").strip()
     
     # Auto-fill ct0 if empty
@@ -227,7 +221,6 @@ def manual_input() -> XCredentials:
     return XCredentials(
         bearer_token=bearer_token,
         csrf_token=csrf_token,
-        auth_token=auth_token,
         ct0=ct0
     )
 

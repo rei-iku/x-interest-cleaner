@@ -9,7 +9,7 @@
  * 5. Press Enter
  * 6. Your config.json will be downloaded automatically
  *
- * Repository: https://github.com/your-repo/x-interest-cleaner
+ * Repository: https://github.com/rei-iku/x-interest-cleaner
  */
 
 (function () {
