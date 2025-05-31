@@ -4,10 +4,12 @@
  * Instructions:
  * 1. Go to x.com and make sure you're logged in
  * 2. Open Developer Tools (F12)
- * 3. Go to Console tab
- * 4. Copy and paste this entire script
- * 5. Press Enter
- * 6. Your config.json will be downloaded automatically
+ * 3. Go to Network tab and refresh the page
+ * 4. Look for any request and check its Authorization header
+ * 5. Go to Console tab
+ * 6. Copy and paste this entire script
+ * 7. Press Enter
+ * 8. Your config.json will be downloaded automatically
  *
  * Repository: https://github.com/rei-iku/x-interest-cleaner
  */
@@ -23,7 +25,7 @@
     const tokens = {};
     let foundTokens = 0;
 
-    // Get ct0 cookie (CSRF token)
+    // Get ct0 and auth_token cookies
     const cookies = document.cookie.split(";");
     cookies.forEach((cookie) => {
       const [name, value] = cookie.trim().split("=");
@@ -32,18 +34,29 @@
         tokens.csrf_token = value; // Same value for both
         foundTokens += 2;
         console.log("✅ Found ct0/csrf_token:", value.substring(0, 20) + "...");
+      } else if (name === "auth_token") {
+        tokens.auth_token = value;
+        foundTokens++;
+        console.log("✅ Found auth_token:", value.substring(0, 20) + "...");
       }
     });
 
-    // Use X's public web app bearer token
-    tokens.bearer_token =
-      "AAAAAAAAAAAAAAAAAAAAAMLheAAAAAAA0%2BuSeid%2BULvsea4JtiGRiSDyJug%3D";
+    // Use X's default web app bearer token
+    // This is the standard token used by X's web interface
+    tokens.bearer_token = "AAAAAAAAAAAAAAAAAAAAAMLheAAAAAAA0%2BuSeid%2BULvsea4JtiGRiSDyJug%3D";
     foundTokens++;
-    console.log("✅ Using default bearer_token");
+    console.log("✅ Found bearer_token");
 
-    // Validate we have essential tokens
+    // Validate we have all essential tokens
     if (!tokens.ct0) {
       console.error("❌ Could not find ct0 cookie!");
+      console.error("💡 Make sure you are logged in to X");
+      console.error("💡 Try refreshing the page and running this script again");
+      return;
+    }
+    
+    if (!tokens.auth_token) {
+      console.error("❌ Could not find auth_token cookie!");
       console.error("💡 Make sure you are logged in to X");
       console.error("💡 Try refreshing the page and running this script again");
       return;
@@ -53,6 +66,7 @@
     console.log("- bearer_token: ✅");
     console.log("- csrf_token: ✅");
     console.log("- ct0: ✅");
+    console.log("- auth_token: ✅");
 
     // Create config JSON
     const config = JSON.stringify(tokens, null, 2);

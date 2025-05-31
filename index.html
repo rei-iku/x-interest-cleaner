@@ -75,40 +75,10 @@
     </div>
 
     <script>
-        function extractXTokens() {
-            const tokens = {};
-            const cookies = document.cookie.split(';');
-            
-            // Get ct0 (CSRF token from cookies)
-            cookies.forEach(cookie => {
-                const [name, value] = cookie.trim().split('=');
-                if (name === 'ct0') {
-                    tokens.ct0 = value;
-                    tokens.csrf_token = value; // Same value for both
-                }
-            });
-            
-            // Use X's public web app bearer token
-            tokens.bearer_token = 'AAAAAAAAAAAAAAAAAAAAAMLheAAAAAAA0%2BuSeid%2BULvsea4JtiGRiSDyJug%3D';
-            
-            // Check if we got the essential tokens
-            if (!tokens.ct0) {
-                alert('❌ Could not find ct0 cookie. Make sure you are logged in to X!');
-                return;
-            }
-            
-            const config = JSON.stringify(tokens, null, 2);
-            const blob = new Blob([config], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'config.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            alert('✅ config.json downloaded with ' + Object.keys(tokens).length + ' tokens!');
-        }
+        // Create the bookmarklet code as a minified string
+        const bookmarkletCode = "javascript:(function(){var tokens={};var cookies=document.cookie.split(';');cookies.forEach(function(cookie){var parts=cookie.trim().split('=');var name=parts[0];var value=parts[1];if(name==='ct0'){tokens.ct0=value;tokens.csrf_token=value;}else if(name==='auth_token'){tokens.auth_token=value;}});var bearerToken=prompt('Enter Bearer token from Network tab (or leave empty for default):');if(bearerToken===null)return;tokens.bearer_token=bearerToken.trim()||'AAAAAAAAAAAAAAAAAAAAAMLheAAAAAAA0%2BuSeid%2BULvsea4JtiGRiSDyJug%3D';if(!tokens.ct0){alert('❌ Could not find ct0 cookie. Make sure you are logged in to X!');return;}if(!tokens.auth_token){alert('❌ Could not find auth_token cookie. Make sure you are logged in to X!');return;}if(!tokens.bearer_token){alert('❌ Bearer token is required!');return;}var config=JSON.stringify(tokens,null,2);var blob=new Blob([config],{type:'application/json'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='config.json';a.click();URL.revokeObjectURL(url);alert('✅ config.json downloaded with '+Object.keys(tokens).length+' tokens!');})();";
 
-        document.getElementById('bookmarklet').href = 'javascript:(' + extractXTokens.toString() + ')();';
+        document.getElementById('bookmarklet').href = bookmarkletCode;
     </script>
 </body>
 </html>

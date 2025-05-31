@@ -1,20 +1,15 @@
-# X Interest Cleaner 🧹
+# X Interest Cleaner
 
-> Stop seeing trash in your timeline. Take control of your X (formerly Twitter) experience by automatically disabling all personalized interests.
+> A tool to automatically disable all personalized interests on X (formerly Twitter).
 
 [![Python](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🎯 What is this?
+## What is this?
 
-X Interest Cleaner is a Python tool that automatically disables all X/Twitter interests used for targeted advertising. By disabling these interests, you can:
+X Interest Cleaner is a Python tool that automatically disables all X/Twitter interests that affect your personalized feed.
 
-- 🚫 Reduce targeted ads in your timeline
-- 🧹 Clean up your personalized advertising profile
-- 🔒 Take back control of your data
-- 📱 Enjoy a cleaner, less cluttered X experience
-
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -46,7 +41,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## 🔑 Getting Your Authentication Tokens
+## Getting Your Authentication Tokens
 
 You'll need to extract 4 tokens from your X session. We provide three methods:
 
@@ -62,7 +57,7 @@ You'll need to extract 4 tokens from your X session. We provide three methods:
 ### Method 2: Bookmarklet
 
 1. Open `index.html` in your browser
-2. Drag the "🔑 Extract X Tokens" button to your bookmarks bar
+2. Drag the "Extract X Tokens" button to your bookmarks bar
 3. Go to [x.com](https://x.com) and log in
 4. Click the bookmark
 5. Download the generated `config.json`
@@ -74,7 +69,7 @@ Run the script with the `--manual` flag and enter tokens when prompted:
 python x_interest_cleaner.py --manual
 ```
 
-## 🏃 Running the Script
+## Running the Script
 
 Once you have your `config.json`:
 
@@ -89,12 +84,12 @@ python x_interest_cleaner.py
 python x_interest_cleaner.py --dry-run
 ```
 
-## 📖 Command Line Options
+## Command Line Options
 
 ```
 usage: x_interest_cleaner.py [-h] [--config CONFIG] [--manual] [--create-config] [--dry-run]
 
-Clean all X interests - Stop seeing trash in your timeline
+Clean all X interests
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -105,7 +100,7 @@ optional arguments:
   --dry-run             Show what would be disabled without making changes
 ```
 
-## 🛠️ Configuration
+## Configuration
 
 The `config.json` file needs these tokens:
 
@@ -117,7 +112,7 @@ The `config.json` file needs these tokens:
 }
 ```
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### "Could not find ct0 cookie"
 - Make sure you're logged in to X
@@ -132,7 +127,7 @@ The `config.json` file needs these tokens:
 - X may temporarily block requests if you run the script too frequently
 - Wait a few minutes and try again
 
-## 📝 How It Works
+## How It Works
 
 1. **Authenticates** with X using your session tokens
 2. **Fetches** all current interests from your account
@@ -140,7 +135,7 @@ The `config.json` file needs these tokens:
 4. **Combines** both lists and removes duplicates
 5. **Disables** all interests in a single API call
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -150,19 +145,14 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 This tool is not affiliated with X Corp. Use at your own risk. Make sure to comply with X's Terms of Service when using this tool.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Thanks to all contributors who help improve this tool
-- Inspired by the need for a cleaner social media experience
-
----
-
-**Remember**: This tool helps reduce targeted advertising, but X may still show some ads based on other factors. For a completely ad-free experience, consider X Premium.

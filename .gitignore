@@ -75,5 +75,7 @@ coverage.xml
 
 curl.txt
 .claude
-config.json
 CLAUDE.md
+current_interests.json
+config*.json
+interests_to_add.json
